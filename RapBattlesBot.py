@@ -33,7 +33,7 @@ CREATE_TABLE = '''CREATE TABLE IF NOT EXISTS submission_polls
                    submission_title text,
                    poll_id text)'''
 INSERT_INTO = '''INSERT INTO submission_polls VALUES (?, ?, ?)'''
-SELECT_FROM = '''SELECT * from submission_polls
+SELECT_FROM = '''SELECT submission_id from submission_polls
                  where submission_id=?'''
 
 CONFIG_ERROR = '''Edit {} to ensure you have defined the the following options:
