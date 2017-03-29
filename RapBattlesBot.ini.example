@@ -1,0 +1,7 @@
+[bot]
+client_id = replace_with_value
+client_secret = replace_with_value
+username = replace_with_value
+password = replace_with_value
+refresh_interval = 60
+submission_limit = 50
