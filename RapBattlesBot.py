@@ -25,7 +25,8 @@ REPLY_TEMPLATE = '''Who won?!!
 
 [Submit your vote here](http://www.strawpoll.me/{})
 
-I'm a robot! Beep boop!'''
+----
+[^I'm ^a ^robot!](https://github.com/MonkeeSage/RapBattlesBot/) ^Beep ^boop!'''
 
 # sql query aliases. this is bad m'kay, but it's fine for a single-script bot
 CREATE_TABLE = '''CREATE TABLE IF NOT EXISTS submission_polls
@@ -140,6 +141,8 @@ class RapBattlesBot(object):
             rapperA = rapperA.split('] ')[1]
         if '- ' in rapperA:
             rapperA = rapperA.split('- ')[1]
+        if '| ' in rapperA:
+            rapperA = rapperA.split('| ')[1]
 
         for separator in [' -', '- ', ' |', ' :', ' [']:
             right = title.find(separator, vs_index+4)
