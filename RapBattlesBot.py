@@ -137,14 +137,11 @@ class RapBattlesBot(object):
             if left > -1:
                 break
         rapperA = title[left+1:vs_index].strip(' ')
-        if '] ' in rapperA:
-            rapperA = rapperA.split('] ')[1]
-        if '- ' in rapperA:
-            rapperA = rapperA.split('- ')[1]
-        if '| ' in rapperA:
-            rapperA = rapperA.split('| ')[1]
+        for separator in ['] ', '- ', '| ']:
+            if separator in rapperA:
+	        rapperA = rapperA.split(separator)[1]
 
-        for separator in [' -', '- ', ' |', ' :', ' [']:
+        for separator in [' -', '- ', ' |', ' :', ' [', ' (']:
             right = title.find(separator, vs_index+4)
             if right > -1:
                 break
