@@ -141,7 +141,7 @@ class RapBattlesBot(object):
             if separator in rapperA:
 	        rapperA = rapperA.split(separator)[1]
 
-        for separator in [' -', '- ', ' |', ' :', ' [', ' (']:
+        for separator in [' -', '- ', ' |', ' :', ' [', ' (', '. ']:
             right = title.find(separator, vs_index+4)
             if right > -1:
                 break
