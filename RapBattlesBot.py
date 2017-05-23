@@ -93,11 +93,6 @@ class RapBattlesBot(object):
         if submission.link_flair_text and \
            'BATTLE' in submission.link_flair_text:
 
-            # parse out battler names
-            rapperA, rapperB = self.process_title(submission.title)
-            if not rapperA or not rapperB:
-                print('Could not parse battlers from "{}"'.format(submission.title))
-
             # don't post the same poll twice
             c = self.conn.cursor()
             r = c.execute(SELECT_FROM, (submission.id,))
@@ -105,6 +100,12 @@ class RapBattlesBot(object):
                 print('Poll already created for "{}"'.format(submission.title))
                 return
 
+            # parse out battler names
+            rapperA, rapperB = self.process_title(submission.title)
+            if not rapperA or not rapperB:
+                print('Could not parse battlers from "{}"'.format(submission.title))
+		return
+	
             # do the do
             print('Creating poll for "{}"'.format(submission.title))
             poll_id = self.create_poll(submission.title, rapperA, rapperB)
@@ -137,6 +138,7 @@ class RapBattlesBot(object):
             if left > -1:
                 break
         rapperA = title[left+1:vs_index].strip(' ')
+	
         for separator in ['] ', '- ', '| ']:
             if separator in rapperA:
 	        rapperA = rapperA.split(separator)[1]
