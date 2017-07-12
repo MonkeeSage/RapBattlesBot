@@ -93,21 +93,23 @@ class RapBattlesBot(object):
         if submission.link_flair_text and \
            'BATTLE' in submission.link_flair_text:
 
+            title = submission.title.encode('utf-8')
+
             # don't post the same poll twice
             c = self.conn.cursor()
             r = c.execute(SELECT_FROM, (submission.id,))
             if r.fetchone():
-                print('Poll already created for "{}"'.format(submission.title))
+                print('Poll already created for "{}"'.format(title))
                 return
 
             # parse out battler names
-            rapperA, rapperB = self.process_title(submission.title)
+            rapperA, rapperB = self.process_title(title)
             if not rapperA or not rapperB:
-                print('Could not parse battlers from "{}"'.format(submission.title))
+                print('Could not parse battlers from "{}"'.format(title))
 		return
 	
             # do the do
-            print('Creating poll for "{}"'.format(submission.title.encode('utf-8')))
+            print('Creating poll for "{}"'.format(title))
             poll_id = self.create_poll(submission.title, rapperA, rapperB)
 
             print('Posting poll (ID: {}) to submission'.format(poll_id))
@@ -115,7 +117,7 @@ class RapBattlesBot(object):
 
             # save poll to db
             c = self.conn.cursor()
-            c.execute(INSERT_INTO, (submission.id, submission.title, poll_id))
+            c.execute(INSERT_INTO, (submission.id, title, poll_id))
             self.conn.commit()
 
             time.sleep(5) # avoid rate limit
