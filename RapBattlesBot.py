@@ -107,7 +107,7 @@ class RapBattlesBot(object):
 		return
 	
             # do the do
-            print('Creating poll for "{}"'.format(submission.title))
+            print('Creating poll for "{}"'.format(submission.title.encode('utf-8')))
             poll_id = self.create_poll(submission.title, rapperA, rapperB)
 
             print('Posting poll (ID: {}) to submission'.format(poll_id))
