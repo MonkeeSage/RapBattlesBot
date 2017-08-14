@@ -117,7 +117,7 @@ class RapBattlesBot(object):
 
             # save poll to db
             c = self.conn.cursor()
-            c.execute(INSERT_INTO, (submission.id, title, poll_id))
+            c.execute(INSERT_INTO, (submission.id, sqlite3.Binary(title), poll_id))
             self.conn.commit()
 
             time.sleep(5) # avoid rate limit
